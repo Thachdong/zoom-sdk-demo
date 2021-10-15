@@ -3,13 +3,13 @@ import { ZoomMtg } from "@zoomus/websdk";
 
 const crypto = require("crypto"); // crypto comes with Node.js
 
-export default function Zoom({meetingNumber}) {
+export default function Zoom({ meetingNumber }) {
   function generateSignature(apiKey, apiSecret, meetingNumber, role) {
     return new Promise((res, rej) => {
       const timestamp = new Date().getTime() - 30000;
-      const msg = Buffer.from(apiKey + meetingNumber + timestamp + role).toString(
-        "base64"
-      );
+      const msg = Buffer.from(
+        apiKey + meetingNumber + timestamp + role
+      ).toString("base64");
       const hash = crypto
         .createHmac("sha256", apiSecret)
         .update(msg)
@@ -17,14 +17,13 @@ export default function Zoom({meetingNumber}) {
       const signature = Buffer.from(
         `${apiKey}.${meetingNumber}.${timestamp}.${role}.${hash}`
       ).toString("base64");
-  
+
       res(signature);
     });
   }
-  
+
   var apiKey = "7jgR7KkeSJGCAYlgcuDFCQ";
   var apiSecret = "u0nvB6m5wbLwl0SeE5sUWXFIyhs564xo1hTq";
-  // var meetingNumber = 98058213775;
   var leaveUrl = "http://localhost:3000";
   var userName = "WebSDK";
   var userEmail = "";
@@ -37,7 +36,10 @@ export default function Zoom({meetingNumber}) {
 
   useEffect(() => {
     showZoomDiv();
-    ZoomMtg.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av");
+    // ZoomMtg.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av");
+    const zoomJSLib = "https://source.zoom.us/1.9.9/lib";
+    const zoomJSAVLib = "/av";
+    ZoomMtg.setZoomJSLib(zoomJSLib, zoomJSAVLib);
     ZoomMtg.preLoadWasm();
     ZoomMtg.prepareJssdk();
     initiateMeeting();
