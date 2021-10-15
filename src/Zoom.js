@@ -22,9 +22,9 @@ export default function Zoom({ meetingNumber }) {
     });
   }
 
-  var apiKey = "7jgR7KkeSJGCAYlgcuDFCQ";
-  var apiSecret = "u0nvB6m5wbLwl0SeE5sUWXFIyhs564xo1hTq";
-  var leaveUrl = "http://localhost:3000";
+  var apiKey = process.env.REACT_APP_API_KEY;
+  var apiSecret = process.env.REACT_APP_API_SECRET;
+  var leaveUrl = process.env.REACT_APP_LEAVE_URL;
   var userName = "WebSDK";
   var userEmail = "";
   var passWord = "";
